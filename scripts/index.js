@@ -1,5 +1,5 @@
 const form = document.querySelector('form');
-const ul = document.querySelector('ul');
+const ul = document.querySelector('ul'); // Список — то место, куда будут добавляться новые элементы на фронте
 const button = document.querySelector('button'); // для сброса всех элементов
 const input = document.getElementById('item'); //для добавления новых элементов
 
@@ -21,12 +21,12 @@ const liMaker = (text) => {
 }
 
 form.addEventListener('submit', function (e) {
-  e.preventDefault();
+  e.preventDefault(); // предотвратит отправку формы при сабмите, т.к мы не собираемся отправлять никаких данных на сервер.
 
-  itemsArray.push(input.value);
-  localStorage.setItem('items', JSON.stringify(itemsArray));
+  itemsArray.push(input.value);// мы будем отправлять каждое новое значение input в массив
+  localStorage.setItem('items', JSON.stringify(itemsArray)); // а затем добавляем в localStorage новое значение с уже обновленным массивом
   liMaker(input.value);
-  input.value = "";
+  input.value = ""; // таким образом вам не придётся вручную стирать то, что вы только написали
 });
 
 data.forEach(item => { // заново запустим liMaker(). 
@@ -34,8 +34,10 @@ data.forEach(item => { // заново запустим liMaker().
   liMaker(item);
 });
 
+// добавим событие по клику на кнопку, 
+// которая очистит все данные из localStorage и удалит все потомков у ul.
 button.addEventListener('click', function () {
-  localStorage.clear(); // удалит всех потомков у ul
+  localStorage.clear();
   while (ul.firstChild) {
     ul.removeChild(ul.firstChild);
   }
